@@ -23,7 +23,6 @@ from minitorch.operators import (
     relu,
     relu_back,
     sigmoid,
-    zipWith,
 )
 
 from .strategies import assert_close, small_floats
@@ -125,6 +124,7 @@ def test_transitive(a: float, b: float, c: float) -> None:
     elif lt(a, b) == 0.0 and lt(b, c) == 1.0:
         assert lt(a, c) == 0.0 or lt(a, c) == 1.0
 
+
 @pytest.mark.task0_2
 @given(small_floats, small_floats)
 def test_symmetric(a: float, b: float) -> None:
@@ -148,7 +148,6 @@ def test_distribute(z: float, x: float, y: float) -> None:
 def test_other(a: float, b: float) -> None:
     """Test the property of inv, i.e. :math:`inv(inv(x)) = x`"""
     assert_close(inv(inv(a)), a)
-
 
 
 ## Task 0.3  - Higher-order functions
@@ -176,6 +175,7 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     assert_close(sum(ls1) + sum(ls2), sum(x + y for x, y in zip(ls1, ls2)))
+
 
 @pytest.mark.task0_3
 @given(lists(small_floats))
