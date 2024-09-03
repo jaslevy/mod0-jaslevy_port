@@ -172,7 +172,7 @@ def inv(x: float) -> float:
     """
     return 1.0 / x
 
-def logback (x: float, d: float) -> float:
+def log_back (x: float, d: float) -> float:
     """Returns the derivative of the log of x times a second argument
         x: float
         d: float
@@ -182,7 +182,7 @@ def logback (x: float, d: float) -> float:
     """
     return d / x
 
-def invback (x: float, d: float) -> float:
+def inv_back (x: float, d: float) -> float:
     """Returns the derivative of the inverse of x times a second argument
     Args: 
         x: float
