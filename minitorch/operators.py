@@ -296,6 +296,8 @@ def sum(xs: Iterable[float]) -> float:
     Returns: sum of all elements
 
     """
+    if not xs:
+        return 0.0
     return cast(float, reduce(cast(Callable[[object, object], object], add), xs))
 
 def prod(xs: Iterable[float]) -> float:
