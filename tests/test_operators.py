@@ -8,7 +8,7 @@ from minitorch import MathTest
 import minitorch
 from minitorch.operators import (
     add,
-    addLists,
+    ##addLists,
     eq,
     id,
     inv,
@@ -107,41 +107,42 @@ def test_sigmoid(a: float) -> None:
     * It crosses 0 at 0.5
     * It is  strictly increasing.
     """
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    assert 0.0 <= sigmoid(a) <= 1.0
+    assert_close(sigmoid(a), 1 - sigmoid(-a))
+    assert_close(sigmoid(0), 0.5)
+    assert sigmoid(a) < sigmoid(a + 1e-7)
 
 
 @pytest.mark.task0_2
 @given(small_floats, small_floats, small_floats)
 def test_transitive(a: float, b: float, c: float) -> None:
     """Test the transitive property of less-than (a < b and b < c implies a < c)"""
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
-
+    assert (lt(a, b) == 1.0 and lt(b, c) == 1.0) == (lt(a, c) == 1.0)
 
 @pytest.mark.task0_2
-def test_symmetric() -> None:
+@given(small_floats, small_floats)
+def test_symmetric(a: float, b: float) -> None:
     """Write a test that ensures that :func:`minitorch.operators.mul` is symmetric, i.e.
     gives the same value regardless of the order of its input.
     """
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    assert_close(mul(a, b), mul(b, a))
 
 
 @pytest.mark.task0_2
-def test_distribute() -> None:
+@given(small_floats, small_floats, small_floats)
+def test_distribute(z: float, x: float, y: float) -> None:
     r"""Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    assert_close(mul(z, add(x, y)), add(mul(z, x), mul(z, y)))
 
 
 @pytest.mark.task0_2
-def test_other() -> None:
-    """Write a test that ensures some other property holds for your functions."""
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+@given(small_floats, small_floats)
+def test_other(a: float, b: float) -> None:
+    """Test the property of inv, i.e. :math:`inv(inv(x)) = x`"""
+    assert_close(inv(inv(a)), a)
+
 
 
 # ## Task 0.3  - Higher-order functions
