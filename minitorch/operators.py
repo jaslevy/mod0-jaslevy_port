@@ -3,7 +3,7 @@
 import math
 
 # ## Task 0.1
-from typing import Callable, Iterable
+from typing import Callable, Iterable, cast
 
 #
 # Implementation of a prelude of elementary functions.
@@ -224,3 +224,86 @@ def relu_back (x: float, d: float) -> float:
 
 
 # TODO: Implement for Task 0.3.
+
+def map(f: Callable[[object], object], xs: Iterable[object]) -> Iterable[object]:
+    """A higher-order function that applies a given function to each element of an iterable
+    Args: 
+        f: function to apply
+        xs: iterable to apply function to
+
+    Returns: iterable of the results of applying the function
+
+    """
+    for x in xs:
+        yield f(x)
+
+def zipWith(f: Callable[[object, object], object], xs: Iterable[object], ys: Iterable[object]) -> Iterable[object]:
+    """A higher-order function that combines elements from two iterables of the same size using a given function
+    Args: 
+        f: function to apply to pairs of elements
+        xs: first iterable
+        ys: second iterable, assumed to be the same size as xs
+
+    Returns: iterable of the results of applying the function to pairs of elements
+
+    """
+    it = iter(ys)
+    for x in xs:
+        y = next(it)
+        yield f(x, y)
+
+def reduce(f: Callable[[object, object], object], xs: Iterable[object]) -> object:
+    """A higher-order function that reduces an iterable to a single value using a given function
+    Args: 
+        f: function to apply to pairs of elements
+        xs: iterable to apply function to
+
+    Returns: single value of the results of applying the function to each pair of elements
+
+    """
+    it = iter(xs)
+    val = next(it)
+    for x in it:
+        val = f(val, x)
+    return val
+
+def negList(xs: Iterable[float]) -> Iterable[float]:
+    """Negate all elements in a list using map
+    Args: 
+        xs: list of floats
+
+    Returns: list of negated floats
+
+    """
+    return cast(Iterable[float], map(cast(Callable[[object], object], neg), xs))
+
+def addLists(xs: Iterable[float], ys: Iterable[float]) -> Iterable[float]:
+    """Add corresponding elements from two lists using zipWith
+    Args: 
+        xs: first list of floats
+        ys: second list of floats, assumed to be the same size as xs
+
+    Returns: list of sums of corresponding elements
+
+    """
+    return cast(Iterable[float], zipWith(cast(Callable[[object, object], object], add), xs, ys))
+
+def sum(xs: Iterable[float]) -> float:
+    """Sum all elements in a list using reduce
+    Args: 
+        xs: list of floats
+
+    Returns: sum of all elements
+
+    """
+    return cast(float, reduce(cast(Callable[[object, object], object], add), xs))
+
+def prod(xs: Iterable[float]) -> float:
+    """Product all elements in a list using reduce
+    Args: 
+        xs: list of floats
+
+    Returns: product of all elements
+
+    """
+    return cast(float, reduce(cast(Callable[[object, object], object], mul), xs))
