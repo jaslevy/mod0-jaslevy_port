@@ -8,7 +8,7 @@ from minitorch import MathTest
 import minitorch
 from minitorch.operators import (
     add,
-    ##addLists,
+    addLists,
     eq,
     id,
     inv,
@@ -18,8 +18,8 @@ from minitorch.operators import (
     max,
     mul,
     neg,
-   ## negList,
-   ## prod,
+    negList,
+    prod,
     relu,
     relu_back,
     sigmoid,
@@ -150,80 +150,80 @@ def test_other(a: float, b: float) -> None:
 
 
 
-# ## Task 0.3  - Higher-order functions
+## Task 0.3  - Higher-order functions
 
 # These tests check that your higher-order functions obey basic
 # properties.
 
 
-# @pytest.mark.task0_3
-# @given(small_floats, small_floats, small_floats, small_floats)
-# def test_zip_with(a: float, b: float, c: float, d: float) -> None:
-#     x1, x2 = addLists([a, b], [c, d])
-#     y1, y2 = a + c, b + d
-#     assert_close(x1, y1)
-#     assert_close(x2, y2)
+@pytest.mark.task0_3
+@given(small_floats, small_floats, small_floats, small_floats)
+def test_zip_with(a: float, b: float, c: float, d: float) -> None:
+    x1, x2 = addLists([a, b], [c, d])
+    y1, y2 = a + c, b + d
+    assert_close(x1, y1)
+    assert_close(x2, y2)
 
 
-# @pytest.mark.task0_3
-# @given(
-#     lists(small_floats, min_size=5, max_size=5),
-#     lists(small_floats, min_size=5, max_size=5),
-# )
-# def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
-#     """Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
-#     is the same as the sum of each element of `ls1` plus each element of `ls2`.
-#     """
-#     # TODO: Implement for Task 0.3.
-#     raise NotImplementedError("Need to implement for Task 0.3")
+@pytest.mark.task0_3
+@given(
+    lists(small_floats, min_size=5, max_size=5),
+    lists(small_floats, min_size=5, max_size=5),
+)
+def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
+    """Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
+    is the same as the sum of each element of `ls1` plus each element of `ls2`.
+    """
+    # TODO: Implement for Task 0.3.
+    raise NotImplementedError("Need to implement for Task 0.3")
 
 
-# @pytest.mark.task0_3
-# @given(lists(small_floats))
-# def test_sum(ls: List[float]) -> None:
-#     assert_close(sum(ls), minitorch.operators.sum(ls))
+@pytest.mark.task0_3
+@given(lists(small_floats))
+def test_sum(ls: List[float]) -> None:
+    assert_close(sum(ls), minitorch.operators.sum(ls))
 
 
-# @pytest.mark.task0_3
-# @given(small_floats, small_floats, small_floats)
-# def test_prod(x: float, y: float, z: float) -> None:
-#     assert_close(prod([x, y, z]), x * y * z)
+@pytest.mark.task0_3
+@given(small_floats, small_floats, small_floats)
+def test_prod(x: float, y: float, z: float) -> None:
+    assert_close(prod([x, y, z]), x * y * z)
 
 
-# @pytest.mark.task0_3
-# @given(lists(small_floats))
-# def test_negList(ls: List[float]) -> None:
-#     check = negList(ls)
-#     for i, j in zip(ls, check):
-#         assert_close(i, -j)
+@pytest.mark.task0_3
+@given(lists(small_floats))
+def test_negList(ls: List[float]) -> None:
+    check = negList(ls)
+    for i, j in zip(ls, check):
+        assert_close(i, -j)
 
 
-# # ## Generic mathematical tests
+# ## Generic mathematical tests
 
-# # For each unit this generic set of mathematical tests will run.
-
-
-# one_arg, two_arg, _ = MathTest._tests()
+# For each unit this generic set of mathematical tests will run.
 
 
-# @given(small_floats)
-# @pytest.mark.parametrize("fn", one_arg)
-# def test_one_args(fn: Tuple[str, Callable[[float], float]], t1: float) -> None:
-#     name, base_fn = fn
-#     base_fn(t1)
+one_arg, two_arg, _ = MathTest._tests()
 
 
-# @given(small_floats, small_floats)
-# @pytest.mark.parametrize("fn", two_arg)
-# def test_two_args(
-#     fn: Tuple[str, Callable[[float, float], float]], t1: float, t2: float
-# ) -> None:
-#     name, base_fn = fn
-#     base_fn(t1, t2)
+@given(small_floats)
+@pytest.mark.parametrize("fn", one_arg)
+def test_one_args(fn: Tuple[str, Callable[[float], float]], t1: float) -> None:
+    name, base_fn = fn
+    base_fn(t1)
 
 
-# @given(small_floats, small_floats)
-# def test_backs(a: float, b: float) -> None:
-#     relu_back(a, b)
-#     inv_back(a + 2.4, b)
-#     log_back(abs(a) + 4, b)
+@given(small_floats, small_floats)
+@pytest.mark.parametrize("fn", two_arg)
+def test_two_args(
+    fn: Tuple[str, Callable[[float, float], float]], t1: float, t2: float
+) -> None:
+    name, base_fn = fn
+    base_fn(t1, t2)
+
+
+@given(small_floats, small_floats)
+def test_backs(a: float, b: float) -> None:
+    relu_back(a, b)
+    inv_back(a + 2.4, b)
+    log_back(abs(a) + 4, b)
