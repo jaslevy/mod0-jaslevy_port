@@ -170,6 +170,8 @@ def inv(x: float) -> float:
     Returns: float: the inverse of x
 
     """
+    if x == 0.0:
+        return float('inf')
     return 1.0 / x
 
 def log_back (x: float, d: float) -> float:
