@@ -99,7 +99,7 @@ lint.ignore = [
     "ANN102",
 ]
 lint.select = ["D", "E", "F", "N", "ANN"]
-lint.fixable' = [
+lint.fixable = [
     "A",
     "B",
     "C",
