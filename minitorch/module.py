@@ -40,6 +40,7 @@ class Module:
         self.training = False
         for module in self.modules():
             module.eval()
+
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
 
