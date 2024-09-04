@@ -99,6 +99,7 @@ class Module:
         return None
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        """Calls the forward method of the module with the given arguments."""
         return self.forward(*args, **kwargs)
 
     def __repr__(self) -> str:

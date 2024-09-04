@@ -93,10 +93,12 @@ def spiral(N: int) -> Graph:
     where the function is a spiral in the unit square. The task is to
     classify points as being on the top or bottom of the spiral.
     """
-    def x(t):
+    def x(t: float) -> float:
+        """Map a value to a position on the x axis of the spiral."""
         return t * math.cos(t) / 20.0
 
-    def y(t):
+    def y(t: float) -> float:
+        """Map a value to a position on the y axis of the spiral."""
         return t * math.sin(t) / 20.0
 
     X = [
