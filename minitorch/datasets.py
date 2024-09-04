@@ -74,7 +74,7 @@ def xor(N: int) -> Graph:
     return Graph(N, X, y)
 
 
-def circle(N: Int) -> Graph:
+def circle(N: int) -> Graph:
     """Generate a graph with N nodes that has a classification task
     where the function is a circle in the unit square. The task is to
     classify points as being inside or outside the circle.
